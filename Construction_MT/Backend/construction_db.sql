@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 09:03 AM
+-- Generation Time: Mar 25, 2024 at 12:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -89,7 +89,19 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (25, 'Can add projects', 7, 'add_projects'),
 (26, 'Can change projects', 7, 'change_projects'),
 (27, 'Can delete projects', 7, 'delete_projects'),
-(28, 'Can view projects', 7, 'view_projects');
+(28, 'Can view projects', 7, 'view_projects'),
+(29, 'Can add projects', 8, 'add_projects'),
+(30, 'Can change projects', 8, 'change_projects'),
+(31, 'Can delete projects', 8, 'delete_projects'),
+(32, 'Can view projects', 8, 'view_projects'),
+(33, 'Can add client', 8, 'add_client'),
+(34, 'Can change client', 8, 'change_client'),
+(35, 'Can delete client', 8, 'delete_client'),
+(36, 'Can view client', 8, 'view_client'),
+(37, 'Can add employee', 9, 'add_employee'),
+(38, 'Can change employee', 9, 'change_employee'),
+(39, 'Can delete employee', 9, 'delete_employee'),
+(40, 'Can view employee', 9, 'view_employee');
 
 -- --------------------------------------------------------
 
@@ -138,6 +150,27 @@ CREATE TABLE `auth_user_user_permissions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `client_client`
+--
+
+CREATE TABLE `client_client` (
+  `id` bigint(20) NOT NULL,
+  `client_name` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `issue_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `client_client`
+--
+
+INSERT INTO `client_client` (`id`, `client_name`, `phone`, `issue_date`) VALUES
+(1, 'Dirie Abdirahman', '615326526', '2024-03-25'),
+(3, 'Dirie Abdirahman', '615326526', '2024-03-24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -173,7 +206,9 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
+(8, 'Client', 'client'),
 (5, 'contenttypes', 'contenttype'),
+(9, 'Employee', 'employee'),
 (7, 'Projects', 'projects'),
 (6, 'sessions', 'session');
 
@@ -213,7 +248,11 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (16, 'auth', '0010_alter_group_name_max_length', '2024-03-25 07:09:07.842164'),
 (17, 'auth', '0011_update_proxy_permissions', '2024-03-25 07:09:07.878059'),
 (18, 'auth', '0012_alter_user_first_name_max_length', '2024-03-25 07:09:07.941449'),
-(19, 'sessions', '0001_initial', '2024-03-25 07:09:08.033511');
+(19, 'sessions', '0001_initial', '2024-03-25 07:09:08.033511'),
+(20, 'Client', '0001_initial', '2024-03-25 08:42:23.011584'),
+(21, 'Client', '0002_rename_projects_client', '2024-03-25 08:45:35.710109'),
+(22, 'Employee', '0001_initial', '2024-03-25 09:16:49.007066'),
+(23, 'Projects', '0002_projects_issue_date', '2024-03-25 09:55:28.067773');
 
 -- --------------------------------------------------------
 
@@ -230,6 +269,28 @@ CREATE TABLE `django_session` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee_employee`
+--
+
+CREATE TABLE `employee_employee` (
+  `id` bigint(20) NOT NULL,
+  `employee_name` varchar(100) NOT NULL,
+  `position` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `issue_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_employee`
+--
+
+INSERT INTO `employee_employee` (`id`, `employee_name`, `position`, `phone`, `issue_date`) VALUES
+(1, 'Abdifitah', 'Engineer', '613643267', '2024-03-23'),
+(3, 'Abdifitah', 'Manager', '613643267', '2024-03-23');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `projects_projects`
 --
 
@@ -239,17 +300,18 @@ CREATE TABLE `projects_projects` (
   `status` varchar(100) NOT NULL,
   `budget` int(11) NOT NULL,
   `start_date` date NOT NULL,
-  `end_date` date NOT NULL
+  `end_date` date NOT NULL,
+  `issue_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `projects_projects`
 --
 
-INSERT INTO `projects_projects` (`id`, `project_name`, `status`, `budget`, `start_date`, `end_date`) VALUES
-(1, 'Stadium', 'In Progress', 50000, '2024-03-01', '2024-03-31'),
-(3, 'Street build', 'Completed', 65000, '2024-01-01', '2024-02-29'),
-(4, 'Home build', 'Completed', 70000, '2024-02-01', '2024-02-29');
+INSERT INTO `projects_projects` (`id`, `project_name`, `status`, `budget`, `start_date`, `end_date`, `issue_date`) VALUES
+(1, 'Stadium', 'In Progress', 50000, '2024-03-01', '2024-03-31', '2024-03-25'),
+(3, 'Street build', 'Completed', 65000, '2024-01-01', '2024-02-29', '2024-03-25'),
+(4, 'Home build', 'Completed', 70000, '2024-02-01', '2024-02-29', '2024-03-25');
 
 --
 -- Indexes for dumped tables
@@ -301,6 +363,12 @@ ALTER TABLE `auth_user_user_permissions`
   ADD KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`);
 
 --
+-- Indexes for table `client_client`
+--
+ALTER TABLE `client_client`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
@@ -329,6 +397,12 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indexes for table `employee_employee`
+--
+ALTER TABLE `employee_employee`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `projects_projects`
 --
 ALTER TABLE `projects_projects`
@@ -354,7 +428,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -375,6 +449,12 @@ ALTER TABLE `auth_user_user_permissions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `client_client`
+--
+ALTER TABLE `client_client`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
@@ -384,13 +464,19 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `employee_employee`
+--
+ALTER TABLE `employee_employee`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `projects_projects`
