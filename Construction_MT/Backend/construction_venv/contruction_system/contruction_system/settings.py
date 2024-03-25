@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Projects.apps.ProjectsConfig',
     'Client.apps.ClientConfig',
     'Employee.apps.EmployeeConfig',
+    'Payments.apps.PaymentsConfig',
     'rest_framework',
 ]
 
